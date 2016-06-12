@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/supso"
+require_relative "../lib/supso/commands"
+
+Supso::Commands.route_command(ARGV)
