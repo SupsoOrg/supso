@@ -3,8 +3,15 @@
   "Getting Started": getting_started
 
 "Commands":
+  "help": help
   "login": login
   "logout": logout
   "show": show
   "update": update
+  "version": version
   "whoami": whoami
+
+"Errors":
+  "Invalid Project Token": invalid_project_token
+  "Missing Project Token": missing_project_token
+  
