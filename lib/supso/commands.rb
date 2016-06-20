@@ -49,8 +49,16 @@ module Supso
       email
     end
 
-    def self.acceptable_commands
+    def self.advanced_commands
       ['logout', 'login', 'show', 'update', 'whoami']
+    end
+
+    def self.simple_commands
+      ['help', 'version']
+    end
+
+    def self.all_commands
+      self.advanced_commands + self.simple_commands
     end
 
     def self.update
@@ -100,7 +108,7 @@ module Supso
     end
 
     def self.show
-      Util.require_all_gems!
+      Project.detect_all_projects!
       if Project.projects.length == 0
         puts "0 projects using Supported Source."
       else
@@ -117,9 +125,13 @@ module Supso
       end
 
       command = args[0]
-      if !Commands.acceptable_commands.include?(command)
+      if !Commands.all_commands.include?(command)
         puts "No such command: #{ command }"
         return Commands.help
+      end
+
+      if Commands.simple_commands.include?(command)
+        return Commands.public_send(command)
       end
 
       Commands.prepare_command_mode!
@@ -133,7 +145,11 @@ module Supso
 
     def self.help
       puts "Usage: supso command"
-      puts "Commands: #{ acceptable_commands.sort.join(' ') }"
+      puts "Commands: #{ all_commands.sort.join(' ') }"
+    end
+
+    def self.version
+      puts Supso::VERSION
     end
   end
 end

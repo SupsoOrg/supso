@@ -27,7 +27,8 @@ module Supso
       break
     end
 
-    if File.exist?(detect_project_root + '/Gemfile')
+    if File.exist?(detect_project_root + '/Gemfile') ||
+      File.exist?(detect_project_root + '/package.json')
       break
     end
 

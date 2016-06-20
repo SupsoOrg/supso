@@ -17,6 +17,20 @@ module Supso
       FileUtils.touch("#{ directory_path }/#{ just_file_path }")
     end
 
+    def Util.has_command?(command)
+      !!Util.which(command)
+    end
+
+    def Util.which(command)
+      command = Util.sanitize_command(command)
+      response = `which #{ command }`
+      response && response.length > 0 ? response : nil
+    end
+
+    def Util.sanitize_command(command)
+      command.gsub(/[^-_\w]/, '')
+    end
+
     def Util.http_get(url)
       json_headers = {
           "Content-Type" => "application/json",

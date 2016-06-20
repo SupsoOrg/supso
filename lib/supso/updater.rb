@@ -12,7 +12,7 @@ module Supso
     def Updater.update_first_time_user
       puts "Supported Source lets you subscribe to projects, so that you can receive urgent security announcements, important new versions, and other information via email."
 
-      Util.require_all_gems!
+      Project.detect_all_projects!
       puts "You are using the following projects with Supported Source:"
       Project.projects.each do |project|
         puts "  #{ project.name }"
@@ -37,7 +37,7 @@ module Supso
 
     def Updater.update_returning_user(user)
       org = Organization.current_organization_or_fetch
-      Util.require_all_gems!
+      Project.detect_all_projects!
       Updater.update_projects!
     end
 
@@ -55,12 +55,11 @@ module Supso
 
       user = User.current_user
       organization = Organization.current_organization
-      project_api_tokens = projects.map { |project| project.api_token }
 
       data = {
           auth_token: user.auth_token,
           user_id: user.id,
-          project_api_tokens: project_api_tokens,
+          projects: projects.map { |project| project.identification_data },
       }
 
       response = Util.http_post("#{ Supso.supso_api_root }organizations/#{ organization.id }/client_tokens", data)
@@ -70,12 +69,18 @@ module Supso
           client_data = project_response['client_data']
           client_token = project_response['client_token']
           api_token = client_data['project_api_token']
-          project = projects.find { |project| project.api_token == api_token }
+          aliases = client_data['project_aliases'] || []
+          project = projects.find { |find_project| find_project.api_token == api_token }
           if project.nil?
-            next
+            project = projects.find { |find_project| Project.aliases_match?(find_project.aliases, aliases) }
+
+            if project.nil?
+              next # Could log warning
+            end
           end
           project.client_data = client_data
           project.client_token = client_token
+          project.aliases = aliases
           project.save_project_data!
         end
       else

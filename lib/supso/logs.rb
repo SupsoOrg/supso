@@ -6,8 +6,12 @@ module Supso
 
     @@logger = nil
 
+    def Logs.log_target
+      (Supso.project_root || Supso.user_supso_config_root) + '/log/supso.log'
+    end
+
     def Logs.ensure_logger_exists!
-      log_file_path = Supso.project_root + '/log/supso.log'
+      log_file_path =  Logs.log_target
       Supso::Util.ensure_path_exists!(log_file_path)
       @@logger ||= Logger.new(log_file_path, shift_age = 100, shift_size = 100 * @@ONE_MB_IN_BYTES)
     end
