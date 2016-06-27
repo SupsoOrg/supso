@@ -8,7 +8,11 @@ This directory contains information connecting your user or organization with Su
 
 2. Should I check this into version control?
 
-Yes, you should check this directory into your version control. The files are needed in order for the projects to run properly.
+Is this a private repository you are sharing with your teammates, or is it a public repository you want others to use (like an open source project)?
+
+If it is a private repository to share amongst a team, you should check this directory into your version control. The files are needed by your teammates in order to run properly.
+
+If it is a public repository, such as that of an open source project, you should not check the file into version control. Add .supso to your .gitignore, if you use git.
 
 
 3. What is Supported Source?
