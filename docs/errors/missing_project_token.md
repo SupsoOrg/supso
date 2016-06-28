@@ -1,4 +1,4 @@
-# Invalid Project Token
+# Missing Project Token
 
-The `SupportedSource::InvalidProjectToken` error is thrown when the client token exists, but is invalid. To update the
+The `MissingProjectToken` error is thrown when the client token is missing. To receive the
 client token, run `supso update`.
