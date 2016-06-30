@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Supso do
   it 'has the right version' do
-    expect(Supso::VERSION).to eq('0.9.1')
+    expect(Supso::VERSION).to eq('0.9.2')
   end
 
   it 'has the right api endpoint' do
