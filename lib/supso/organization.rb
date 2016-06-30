@@ -27,7 +27,7 @@ module Supso
     end
 
     def self.current_organization_filename
-      "#{ SupportedSource.project_supso_config_root }/current_organization.json"
+      "#{ Supso.project_supso_config_root }/current_organization.json"
     end
 
     def self.current_organization_from_file
@@ -82,7 +82,7 @@ module Supso
           auth_token: user.auth_token,
           user_id: user.id,
       }
-      response = Util.http_post("#{ SupportedSource.supso_api_root }users/me/current_organization", data)
+      response = Util.http_post("#{ Supso.supso_api_root }users/me/current_organization", data)
 
       if response['success']
         org = response['organization']
