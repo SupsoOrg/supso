@@ -110,7 +110,7 @@ module Supso
     end
 
     def valid?
-      self.validity == :VALID
+      self.validity == VALID
     end
 
     def validity

@@ -9,6 +9,28 @@ module Supso
       first.merge(second, &merger)
     end
 
+    def Util.detect_project_root
+      project_root = Dir.getwd
+      while true
+        if project_root == ""
+          project_root = nil
+          break
+        end
+
+        if File.exist?(project_root + '/Gemfile') ||
+            File.exist?(project_root + '/package.json') ||
+            File.exist?(project_root + '.supso')
+          break
+        end
+
+        detect_project_root_splits = project_root.split("/")
+        detect_project_root_splits = detect_project_root_splits[0..detect_project_root_splits.length - 2]
+        project_root = detect_project_root_splits.join("/")
+      end
+
+      project_root
+    end
+
     def Util.ensure_path_exists!(full_path)
       split_paths = full_path.split('/')
       just_file_path = split_paths.pop
@@ -85,7 +107,11 @@ module Supso
     end
 
     def Util.require_all_gems!
-      Bundler.require(:default, :development, :test, :production)
+      begin
+        Bundler.require(:default, :development, :test, :production)
+      rescue Gem::LoadError
+        # Keep going
+      end
     end
 
     def Util.underscore_to_camelcase(str)
