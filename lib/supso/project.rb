@@ -21,8 +21,8 @@ module Supso
       @options = options
       @client_data = self.load_client_data
       @client_token = self.load_client_token
-      @source = options['source'] || options[:source]
-      @aliases = options['aliases'] || options[:aliases] || []
+      @source = options[:source] || options['source']
+      @aliases = options[:aliases] || options['aliases'] || []
     end
 
     def filename(filetype)
@@ -179,7 +179,11 @@ module Supso
     end
 
     def self.add(name, api_token, options = {})
-      options['source'] ||= 'add'
+      # Correct for common mistakes:
+      options[:aliases] = options['aliases'] if options['aliases'] && !options[:aliases]
+      options[:source] = options['source'] if options['source'] && !options[:source]
+
+      options[:source] ||= 'add'
       project = Project.new(name, api_token, options)
       self.projects << project
     end
