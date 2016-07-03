@@ -45,7 +45,7 @@ module Supso
       dependencies.each_key do |dependency_name|
         if dependency_name == 'supported-source'
           Project.add(name, nil, {
-                  aliases: [{name: name, platform: 'npm'}],
+                  aliases: [{'name' => name, 'platform' => 'npm'}],
                   source: 'npm'
               })
         else
