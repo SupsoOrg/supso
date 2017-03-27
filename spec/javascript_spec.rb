@@ -1,6 +1,6 @@
 describe Supso do
   describe "#detect_all_npm_projects!" do
-    it "correctly interprets npm projects using Supported Source" do
+    it "correctly interprets npm projects using Super Source" do
       json = %q(
 {
   "name": "root_project",
@@ -17,15 +17,15 @@ describe Supso do
         "dependency-with-supso": {
           "version": "1.8.3",
           "dependencies": {
-            "supported-source": {
+            "super-source": {
               "version": "0.8.1"
             }
           }
         },
-        "supported-source": {
+        "super-source": {
           "version": "0.8.1",
-          "from": "../supported_source/js",
-          "resolved": "file:../supported_source/js",
+          "from": "../super_source/js",
+          "resolved": "file:../super_source/js",
           "dependencies": {
             "app-root-path": {
               "version": "1.2.1",

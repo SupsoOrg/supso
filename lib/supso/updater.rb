@@ -10,10 +10,10 @@ module Supso
     end
 
     def Updater.update_first_time_user
-      puts "Supported Source lets you subscribe to projects, so that you can receive urgent security announcements, important new versions, and other information via email."
+      puts "Super Source lets you subscribe to projects, so that you can receive urgent security announcements, important new versions, and other information via email."
 
       Project.detect_all_projects!
-      puts "You are using the following projects with Supported Source:"
+      puts "You are using the following projects with Super Source:"
       Project.projects.each do |project|
         puts "  #{ project.name }"
       end

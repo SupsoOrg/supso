@@ -20,9 +20,9 @@ gem 'supso', '0.9.0', path: 'local/path/to/gem'
 
 ## Philosophy
 
-Supported Source is split into two types of packages: the supso command line interface,
-and packages included with the projects that use Supported Source.
+Super Source is split into two types of packages: the supso command line interface,
+and packages included with the projects that use Super Source.
 
-This gem, the Supported Source Ruby gem, is an example of the former: the command line interface.
+This gem, the Super Source Ruby gem, is an example of the former: the command line interface.
 
 The supso command line interface should never be directly added as a requirement from the projects.

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../supso/project'
 
-module SupportedSource
+module SuperSource
   class Project
     def self.add(*args)
       Supso::Project.add(*args)

@@ -2,12 +2,12 @@ require 'erb'
 require 'json'
 require 'fileutils'
 require 'io/console'
-require 'supported_source'
+require 'super_source'
 
 module Supso
   class Commands
     def self.prepare_command_mode!
-      require File.dirname(__FILE__) + '/../supported_source/project'
+      require File.dirname(__FILE__) + '/../super_source/project'
     end
 
     def self.prompt_choices(choices = [])
@@ -110,9 +110,9 @@ module Supso
     def self.show
       Project.detect_all_projects!
       if Project.projects.length == 0
-        puts "0 projects using Supported Source."
+        puts "0 projects using Super Source."
       else
-        puts "#{ Project.projects.length } #{ Util.pluralize(Project.projects.length, 'project') } using Supported Source.\n"
+        puts "#{ Project.projects.length } #{ Util.pluralize(Project.projects.length, 'project') } using Super Source.\n"
         Project.projects.each do |project|
           project.puts_info
         end

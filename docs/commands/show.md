@@ -6,7 +6,7 @@ Usage:
 
 ```
 $ supso show
-3 projects using Supported Source.
+3 projects using Super Source.
 dataduck-etl
   Source: add (ruby)
   Valid: Yes

@@ -6,6 +6,6 @@ describe Supso do
   end
 
   it 'has the right api endpoint' do
-    expect(Supso.supso_api_root).to eq('https://supportedsource.org/api/v1/')
+    expect(Supso.supso_api_root).to eq('https://supso.org/api/v1/')
   end
 end
