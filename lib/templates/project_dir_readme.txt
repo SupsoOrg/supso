@@ -1,4 +1,4 @@
-README FOR SUPPORTED SOURCE PROJECT DIRECTORY
+README FOR SUPER SOURCE PROJECT DIRECTORY
 ---------------------------------------------
 
 1. What is this directory?

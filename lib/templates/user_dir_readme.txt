@@ -1,4 +1,4 @@
-README FOR SUPPORTED SOURCE USER DIRECTORY
+README FOR SUPER SOURCE USER DIRECTORY
 ------------------------------------------
 
 This directory contains your user information for Super Source. If you've never heard of Super Source, it's probably being included from a project you're using.
