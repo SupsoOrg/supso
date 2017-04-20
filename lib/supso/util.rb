@@ -10,6 +10,7 @@ module Supso
     end
 
     def Util.detect_project_root
+      base_file_names = ['Gemfile', 'package.json', '.supso', 'environment.yml', 'requirements.txt', 'setup.py']
       project_root = Dir.getwd
       while true
         if project_root == ""
@@ -17,15 +18,19 @@ module Supso
           break
         end
 
-        if File.exist?(project_root + '/Gemfile') ||
-            File.exist?(project_root + '/package.json') ||
-            File.exist?(project_root + '.supso')
-          break
+        for name in base_file_names
+          if File.exist?(project_root + '/' + name)
+            break
+          end
         end
 
         detect_project_root_splits = project_root.split("/")
         detect_project_root_splits = detect_project_root_splits[0..detect_project_root_splits.length - 2]
         project_root = detect_project_root_splits.join("/")
+      end
+      
+      if project_root == nil || project_root == ''
+        project_root = Dir.getwd
       end
 
       project_root
