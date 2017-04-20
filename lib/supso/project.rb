@@ -214,5 +214,17 @@ module Supso
 
       false
     end
+    
+    def self.get_from_references(references)
+      result_projects = []
+      references.each do |name|
+        project = Project.projects.find { |find_project| find_project.name == name }
+        if project.nil?
+          project = Project.new(name, nil)
+        end
+        result_projects << project
+      end
+      result_projects
+    end
   end
 end

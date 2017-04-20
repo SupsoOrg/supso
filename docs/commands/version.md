@@ -8,5 +8,5 @@ such as the Ruby gem super_source, or the Javascript package super-source.
 Usage:
 
 `$ supso version
-0.9.1
+0.10.3
 `

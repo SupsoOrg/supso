@@ -1,21 +1,24 @@
 module Supso
   module Updater
-    def Updater.update
+    def Updater.update(project_references = [])
       user = User.current_user
       if user && user.auth_token
-        Updater.update_returning_user(user)
+        Updater.update_returning_user(user, project_references)
       else
-        Updater.update_first_time_user
+        Updater.update_first_time_user(project_references)
       end
     end
 
-    def Updater.update_first_time_user
+    def Updater.update_first_time_user(project_references = [])
       puts "Super Source lets you subscribe to projects, so that you can receive urgent security announcements, important new versions, and other information via email."
 
       Project.detect_all_projects!
-      puts "You are using the following projects with Super Source:"
-      Project.projects.each do |project|
-        puts "  #{ project.name }"
+
+      if project_references.length == 0
+        puts "You are using the following projects with Super Source:"
+        Project.projects.each do |project|
+          puts "  #{ project.name }"
+        end
       end
 
       puts "You can opt-out if you wish, however you must provide a valid email, in order to receive the confirmation token."
@@ -32,17 +35,19 @@ module Supso
         end
       end
 
-      Updater.update_projects!
+      projects = Project.get_from_references(project_references)
+      Updater.update_projects!(projects)
     end
 
-    def Updater.update_returning_user(user)
+    def Updater.update_returning_user(user, project_references)
       org = Organization.current_organization_or_fetch
       Project.detect_all_projects!
-      Updater.update_projects!
+      projects = Project.get_from_references(project_references)
+      Updater.update_projects!(projects)
     end
 
-    def Updater.update_projects!(projects = nil)
-      if projects.nil?
+    def Updater.update_projects!(projects = [])
+      if projects.nil? || projects.length == 0
         projects = Project.projects
       end
 
@@ -51,7 +56,11 @@ module Supso
         return
       end
 
-      puts "Updating #{ Util.pluralize(projects.length, 'project') }..."
+      if projects.length == 1
+        puts "Updating 1 project (#{ projects.first.name })..."
+      else
+        puts "Updating #{ projects.length } projects..."
+      end
 
       user = User.current_user
       organization = Organization.current_organization

@@ -61,8 +61,8 @@ module Supso
       self.advanced_commands + self.simple_commands
     end
 
-    def self.update
-      Updater.update
+    def self.update(*project_names)
+      Updater.update(project_names)
     end
     
     def self.whereami
