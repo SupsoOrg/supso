@@ -50,7 +50,7 @@ module Supso
     end
 
     def self.advanced_commands
-      ['logout', 'login', 'show', 'update', 'whoami']
+      ['logout', 'login', 'show', 'update', 'whereami', 'whoami']
     end
 
     def self.simple_commands
@@ -63,6 +63,13 @@ module Supso
 
     def self.update
       Updater.update
+    end
+    
+    def self.whereami
+      puts "Project = #{ Supso.project_root }"
+      puts "Project Config = #{ Supso.project_supso_config_root }"
+      puts "User Config = #{ Supso.user_supso_config_root }"
+      puts "Supso Gem = #{ Supso.gem_root }"
     end
 
     def self.whoami
